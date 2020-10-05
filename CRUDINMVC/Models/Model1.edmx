@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DemoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="CATEGORY_ID" />
+          </Key>
+          <Property Name="CATEGORY_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CATEGORY_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblProduct">
+          <Key>
+            <PropertyRef Name="PROD_ID" />
+          </Key>
+          <Property Name="PROD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PROD_NAME" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PROD_PRICE" Type="numeric" Precision="8" Scale="2" />
+          <Property Name="PROD_UNIT" Type="int" />
+          <Property Name="PROD_CATEGORY_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK_tblProduct_tblCategory">
+          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="CATEGORY_ID" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="PROD_CATEGORY_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_delete_tblCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CATEGORY_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_delete_tblProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PROD_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_details_tblCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CATEGORY_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_details_tblProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PROD_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Insert_tblCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CATEGORY_NAME" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_Insert_tblProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PROD_NAME" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="PROD_PRICE" Type="numeric" Mode="In" />
+          <Parameter Name="PROD_UNIT" Type="int" Mode="In" />
+          <Parameter Name="PROD_CATEGORY_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Select_tblCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Select_tblProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_tblProduct_data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Update_tblCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CATEGORY_ID" Type="int" Mode="In" />
+          <Parameter Name="CATEGORY_NAME" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_Update_tblProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PROD_ID" Type="int" Mode="In" />
+          <Parameter Name="PROD_NAME" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="PROD_PRICE" Type="numeric" Mode="In" />
+          <Parameter Name="PROD_UNIT" Type="int" Mode="In" />
+          <Parameter Name="PROD_CATEGORY_ID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DemoDBModelStoreContainer">
+          <EntitySet Name="tblCategory" EntityType="Self.tblCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProduct" EntityType="Self.tblProduct" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblProduct_tblCategory" Association="Self.FK_tblProduct_tblCategory">
+            <End Role="tblCategory" EntitySet="tblCategory" />
+            <End Role="tblProduct" EntitySet="tblProduct" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DemoDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="CATEGORY_ID" />
+          </Key>
+          <Property Name="CATEGORY_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CATEGORY_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblProducts" Relationship="Self.FK_tblProduct_tblCategory" FromRole="tblCategory" ToRole="tblProduct" />
+        </EntityType>
+        <EntityType Name="tblProduct">
+          <Key>
+            <PropertyRef Name="PROD_ID" />
+          </Key>
+          <Property Name="PROD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PROD_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PROD_PRICE" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="PROD_UNIT" Type="Int32" />
+          <Property Name="PROD_CATEGORY_ID" Type="Int32" />
+          <NavigationProperty Name="tblCategory" Relationship="Self.FK_tblProduct_tblCategory" FromRole="tblProduct" ToRole="tblCategory" />
+        </EntityType>
+        <Association Name="FK_tblProduct_tblCategory">
+          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="CATEGORY_ID" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="PROD_CATEGORY_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DemoDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCategories" EntityType="Self.tblCategory" />
+          <EntitySet Name="tblProducts" EntityType="Self.tblProduct" />
+          <AssociationSet Name="FK_tblProduct_tblCategory" Association="Self.FK_tblProduct_tblCategory">
+            <End Role="tblCategory" EntitySet="tblCategories" />
+            <End Role="tblProduct" EntitySet="tblProducts" />
+          </AssociationSet>
+          <FunctionImport Name="sp_delete_tblCategory">
+          <Parameter Name="CATEGORY_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_delete_tblProduct">
+          <Parameter Name="PROD_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Insert_tblCategory">
+          <Parameter Name="CATEGORY_NAME" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Insert_tblProduct">
+            <Parameter Name="PROD_NAME" Mode="In" Type="String" />
+            <Parameter Name="PROD_PRICE" Mode="In" Type="Decimal" />
+            <Parameter Name="PROD_UNIT" Mode="In" Type="Int32" />
+            <Parameter Name="PROD_CATEGORY_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Select_tblCategory" ReturnType="Collection(DemoDBModel.sp_Select_tblCategory_Result)" />
+          <FunctionImport Name="sp_Select_tblProduct" ReturnType="Collection(DemoDBModel.sp_Select_tblProduct_Result)" />
+          <FunctionImport Name="sp_Update_tblCategory">
+            <Parameter Name="CATEGORY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="CATEGORY_NAME" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Update_tblProduct">
+            <Parameter Name="PROD_ID" Mode="In" Type="Int32" />
+            <Parameter Name="PROD_NAME" Mode="In" Type="String" />
+            <Parameter Name="PROD_PRICE" Mode="In" Type="Decimal" />
+            <Parameter Name="PROD_UNIT" Mode="In" Type="Int32" />
+            <Parameter Name="PROD_CATEGORY_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_details_tblCategory" ReturnType="Collection(DemoDBModel.sp_details_tblCategory_Result)">
+          <Parameter Name="CATEGORY_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_details_tblProduct" ReturnType="Collection(DemoDBModel.sp_details_tblProduct_Result)">
+          <Parameter Name="PROD_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_tblProduct_data" ReturnType="Collection(DemoDBModel.sp_tblProduct_data_Result)" />
+        </EntityContainer>
+        <ComplexType Name="sp_Select_tblCategory_Result">
+          <Property Type="Int32" Name="CATEGORY_ID" Nullable="false" />
+          <Property Type="String" Name="CATEGORY_NAME" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_Select_tblProduct_Result">
+          <Property Type="Int32" Name="PROD_ID" Nullable="false" />
+          <Property Type="String" Name="PROD_NAME" Nullable="false" />
+          <Property Type="Decimal" Name="PROD_PRICE" Nullable="true" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="PROD_UNIT" Nullable="true" />
+          <Property Type="String" Name="CATEGORY_NAME" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_details_tblCategory_Result">
+          <Property Type="Int32" Name="CATEGORY_ID" Nullable="false" />
+          <Property Type="String" Name="CATEGORY_NAME" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_details_tblProduct_Result">
+          <Property Type="Int32" Name="PROD_ID" Nullable="false" />
+          <Property Type="String" Name="PROD_NAME" Nullable="false" />
+          <Property Type="Decimal" Name="PROD_PRICE" Nullable="true" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="PROD_UNIT" Nullable="true" />
+          <Property Type="String" Name="CATEGORY_NAME" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_tblProduct_data_Result">
+          <Property Type="Int32" Name="PROD_ID" Nullable="false" />
+          <Property Type="String" Name="PROD_NAME" Nullable="false" />
+          <Property Type="Decimal" Name="PROD_PRICE" Nullable="true" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="PROD_UNIT" Nullable="true" />
+          <Property Type="Int32" Name="PROD_CATEGORY_ID" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DemoDBModelStoreContainer" CdmEntityContainer="DemoDBEntities1">
+          <EntitySetMapping Name="tblCategories">
+            <EntityTypeMapping TypeName="DemoDBModel.tblCategory">
+              <MappingFragment StoreEntitySet="tblCategory">
+                <ScalarProperty Name="CATEGORY_ID" ColumnName="CATEGORY_ID" />
+                <ScalarProperty Name="CATEGORY_NAME" ColumnName="CATEGORY_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProducts">
+            <EntityTypeMapping TypeName="DemoDBModel.tblProduct">
+              <MappingFragment StoreEntitySet="tblProduct">
+                <ScalarProperty Name="PROD_ID" ColumnName="PROD_ID" />
+                <ScalarProperty Name="PROD_NAME" ColumnName="PROD_NAME" />
+                <ScalarProperty Name="PROD_PRICE" ColumnName="PROD_PRICE" />
+                <ScalarProperty Name="PROD_UNIT" ColumnName="PROD_UNIT" />
+                <ScalarProperty Name="PROD_CATEGORY_ID" ColumnName="PROD_CATEGORY_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_delete_tblCategory" FunctionName="DemoDBModel.Store.sp_delete_tblCategory" />
+          <FunctionImportMapping FunctionImportName="sp_delete_tblProduct" FunctionName="DemoDBModel.Store.sp_delete_tblProduct" />
+          <FunctionImportMapping FunctionImportName="sp_Insert_tblCategory" FunctionName="DemoDBModel.Store.sp_Insert_tblCategory" />
+          <FunctionImportMapping FunctionImportName="sp_Insert_tblProduct" FunctionName="DemoDBModel.Store.sp_Insert_tblProduct" />
+          <FunctionImportMapping FunctionImportName="sp_Select_tblCategory" FunctionName="DemoDBModel.Store.sp_Select_tblCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoDBModel.sp_Select_tblCategory_Result">
+                <ScalarProperty Name="CATEGORY_ID" ColumnName="CATEGORY_ID" />
+                <ScalarProperty Name="CATEGORY_NAME" ColumnName="CATEGORY_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Select_tblProduct" FunctionName="DemoDBModel.Store.sp_Select_tblProduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoDBModel.sp_Select_tblProduct_Result">
+                <ScalarProperty Name="PROD_ID" ColumnName="PROD_ID" />
+                <ScalarProperty Name="PROD_NAME" ColumnName="PROD_NAME" />
+                <ScalarProperty Name="PROD_PRICE" ColumnName="PROD_PRICE" />
+                <ScalarProperty Name="PROD_UNIT" ColumnName="PROD_UNIT" />
+                <ScalarProperty Name="CATEGORY_NAME" ColumnName="CATEGORY_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Update_tblCategory" FunctionName="DemoDBModel.Store.sp_Update_tblCategory" />
+          <FunctionImportMapping FunctionImportName="sp_Update_tblProduct" FunctionName="DemoDBModel.Store.sp_Update_tblProduct" />
+          <FunctionImportMapping FunctionImportName="sp_details_tblCategory" FunctionName="DemoDBModel.Store.sp_details_tblCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoDBModel.sp_details_tblCategory_Result">
+                <ScalarProperty Name="CATEGORY_ID" ColumnName="CATEGORY_ID" />
+                <ScalarProperty Name="CATEGORY_NAME" ColumnName="CATEGORY_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_details_tblProduct" FunctionName="DemoDBModel.Store.sp_details_tblProduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoDBModel.sp_details_tblProduct_Result">
+                <ScalarProperty Name="PROD_ID" ColumnName="PROD_ID" />
+                <ScalarProperty Name="PROD_NAME" ColumnName="PROD_NAME" />
+                <ScalarProperty Name="PROD_PRICE" ColumnName="PROD_PRICE" />
+                <ScalarProperty Name="PROD_UNIT" ColumnName="PROD_UNIT" />
+                <ScalarProperty Name="CATEGORY_NAME" ColumnName="CATEGORY_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_tblProduct_data" FunctionName="DemoDBModel.Store.sp_tblProduct_data">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoDBModel.sp_tblProduct_data_Result">
+                <ScalarProperty Name="PROD_ID" ColumnName="PROD_ID" />
+                <ScalarProperty Name="PROD_NAME" ColumnName="PROD_NAME" />
+                <ScalarProperty Name="PROD_PRICE" ColumnName="PROD_PRICE" />
+                <ScalarProperty Name="PROD_UNIT" ColumnName="PROD_UNIT" />
+                <ScalarProperty Name="PROD_CATEGORY_ID" ColumnName="PROD_CATEGORY_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CRUDINMVC.Models.sp_Select_tblCategory_Result>
+
+@{
+    ViewBag.Title = "All Category List";
+}
+
+<h2>All Category Details</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Category ID
+        </th>
+        <th>
+            Category Name
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CATEGORY_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CATEGORY_NAME)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { CATEGORY_ID = item.CATEGORY_ID }) |
+            @Html.ActionLink("Details", "Details", new { CATEGORY_ID = item.CATEGORY_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { CATEGORY_ID = item.CATEGORY_ID })
+        </td>
+    </tr>
+}
+
+</table>

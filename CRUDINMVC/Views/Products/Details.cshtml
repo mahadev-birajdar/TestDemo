@@ -1,0 +1,50 @@
+﻿@model CRUDINMVC.Models.sp_details_tblProduct_Result
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Product Details</h2>
+
+<div>
+   
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Product Name :")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PROD_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Price :")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PROD_PRICE)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Unit :")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PROD_UNIT)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Product Category :")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CATEGORY_NAME)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PROD_ID }) |
+    @Html.ActionLink("Back to List", "AllProductList")
+</p>

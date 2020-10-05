@@ -1,0 +1,61 @@
+﻿@model CRUDINMVC.Models.tblCategory
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create Category</h2>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @*<h4>Category</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Category Name", htmlAttributes: new { id="lblCategoryName", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CATEGORY_NAME, new {htmlAttributes = new { id = "txtCategoryName",  @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CATEGORY_NAME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="btnCreateCategory" value="Create"  class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "AllCategoryList")
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+       
+        $('#btnCreateCategory').on('click', (function (e) {
+            
+            var thisForm = this;
+            var CategoryNameval = $("#txtCategoryName").val();            
+            $.getJSON("http://localhost/api/CategoryAPI", function (data)
+            {                
+                $.each(data ,function(key,val)
+                {
+                    if (CategoryNameval != undefined && CategoryNameval != null && CategoryNameval === val.CATEGORY_NAME) {
+                        alert('This catrgory name is already added');
+                        e.preventDefault();
+                        return false;                        
+                    }                        
+                })            
+                
+            })
+            $(this).unbind('submit').submit()
+        }))
+
+    })
+</script>

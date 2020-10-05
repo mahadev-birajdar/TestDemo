@@ -1,0 +1,62 @@
+﻿@model CRUDINMVC.Models.sp_details_tblCategory_Result
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete Category</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<div>
+    @*<h4>Category</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+       
+            <div style="display:none">
+                @Html.EditorFor(model => model.CATEGORY_ID, new { htmlAttributes = new { id = "lblCategoryID",  @class = "form-control" } })
+
+            </div>
+            <dt>
+                @Html.DisplayName("Category Name :")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CATEGORY_NAME)
+            </dd>
+
+
+</dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" id="btnDeleteCategory" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "AllCategoryList")
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#btnDeleteCategory').on('click', (function (e) {
+            var CategoryIDval = $('#lblCategoryID').val();
+            $.getJSON("http://localhost/api/DeleteCategoryAPI", function (data)
+            {
+                $.each(data ,function(key,val)
+                {
+                    if (CategoryIDval != undefined && CategoryIDval != null && CategoryIDval === val.PROD_CATEGORY_ID) {
+                        alert('Can not delete this category, it is refered by another products.');
+                        e.preventDefault();
+                        return false;
+                    }
+                })                
+            })
+            $(this).unbind('submit').submit()
+        }))
+
+    })
+</script>
