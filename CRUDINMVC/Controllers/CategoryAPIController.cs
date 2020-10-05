@@ -26,6 +26,7 @@ namespace CRUDINMVC.Controllers
                 lobjCategory.CATEGORY_NAME = category.CATEGORY_NAME;
                 ilstCtegory.Add(lobjCategory);
             }
+
             return ilstCtegory; 
         }
 
